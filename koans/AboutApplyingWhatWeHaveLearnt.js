@@ -148,7 +148,35 @@ describe("About Applying What We Have Learnt", function() {
   });
 
   it("should find the largest palindrome made from the product of two 3 digit numbers", function () {
-    
+    //should find the largest palindrome made from the product of two 3 digit numbers
+    var largestPalindrome = function() {
+
+        var max = 0,
+            product = 0;
+        for (var num1 = 999; num1 >= 100; num1--) {
+            for (var num2 = 999; num2 >= 100; num2--) {
+                product = num1 * num2;
+                product > max && isPalindrome(product.toString()) ?  max = product : 0;
+            }
+        }
+        return max;
+    };
+
+    //check to see if product is a palindrome
+    var isPalindrome = function(product) {
+
+        var palindromeCheck = true;
+        for (var i = 0; i < product.length / 2; i++) {
+            if (product[i] != product[product.length - i - 1])
+                palindromeCheck = false;
+        }
+        return palindromeCheck;
+       // or just do this:
+       //return product === product.split("").reverse().join("");
+    };
+
+    expect(largestPalindrome()).toBe(906609);
+
   });
 
   it("should find the smallest number divisible by each of the numbers 1 to 20", function () {
