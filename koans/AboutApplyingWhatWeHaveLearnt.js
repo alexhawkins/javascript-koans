@@ -92,12 +92,12 @@ describe("About Applying What We Have Learnt", function() {
 
     /* chain() together map(), flatten() and reduce() */
     ingredientCount = _.chain(products)
-      .map(function(product) { return product.ingredients })
+      .map(function(product) { return product.ingredients; })
       .flatten()
       .reduce(function (ingredientCount, word) {
         ingredientCount[word] = (ingredientCount[word] || 0) + 1;
         return ingredientCount;
-      }, {}) //empty array serves as an intial value to start our reduce
+      }, {}) //empty object serves as an intial value to start our reduce
       .value();
 
     expect(ingredientCount['mushrooms']).toBe(2);
@@ -105,9 +105,46 @@ describe("About Applying What We Have Learnt", function() {
 
   /*********************************************************************************/
   /* UNCOMMENT FOR EXTRA CREDIT */
-  /*
+
   it("should find the largest prime factor of a composite number", function () {
-  
+    //prime factors implementation 1
+    var largestPrime = function(num) {
+      var largest = 0;
+      for (var i = 2; i < num; i++) {
+          //check to see if number is divisible
+          if (num % i === 0) {
+              checkPrime = true;
+              //check to see if divisible number is prime
+              for (var j = 2; j < i; j++) {
+                  if (i % j === 0) checkPrime = false;
+              }
+              if (checkPrime) largest = i;
+          }
+      }
+      return largest;
+    };
+
+    //alternate prime factors implementation, storing all factors in an array
+    var largestPrime2 = function(num) {
+        var primeFactors = [],
+            i = 2;
+        while (num > 1) {
+            //check to see if number is divisible 
+            while (num % i === 0) {
+                //if it is and it's prime
+                primeFactors.push(i);
+                num /= i; //get the next divisible factor
+            }
+            i += 1;
+        }
+        return Math.max.apply(null, primeFactors);
+    };
+
+    expect(largestPrime2(13195)).toBe(29);
+    expect(largestPrime(13195)).toBe(29);
+    expect(largestPrime(100)).toBe(5);
+    expect(largestPrime2(100)).toBe(5);
+
   });
 
   it("should find the largest palindrome made from the product of two 3 digit numbers", function () {
@@ -126,5 +163,4 @@ describe("About Applying What We Have Learnt", function() {
   it("should find the 10001st prime", function () {
 
   });
-  */
 });
