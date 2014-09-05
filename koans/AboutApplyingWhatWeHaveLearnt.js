@@ -184,7 +184,28 @@ describe("About Applying What We Have Learnt", function() {
     
   });
 
-  it("should find the difference between the sum of the squares and the square of the sums", function () {
+  it("should find the difference between the sum of the squares and the square of the sums of number 1 through 10, and 1 through 100", function () {
+    
+    var sumOfSquares = function(numbers) {
+      return _.reduce(numbers, function(memo, a) {
+          return memo + (a * a);
+      });
+    };
+
+    var squareOfSums = function(numbers) {
+        var sum = _.reduce(numbers, function(memo, a) {
+            return memo + a;
+        });
+        return sum * sum;
+    };
+
+    var nums1 = (_.range(1,11));
+    var nums2 = (_.range(1,101));
+    var difference1 = Math.abs(squareOfSums(nums1) - sumOfSquares(nums1));
+    var difference2 = Math.abs(squareOfSums(nums2) - sumOfSquares(nums2));
+
+    expect(difference1).toBe(2640);
+    expect(difference2).toBe(25164150);
     
   });
 
